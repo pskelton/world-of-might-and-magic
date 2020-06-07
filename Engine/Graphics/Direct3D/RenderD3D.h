@@ -104,7 +104,7 @@ class RenderD3D {
     char field_78[208];
 };
 
-extern struct RenderVertexD3D3 pVertices[50];
+// extern struct RenderVertexD3D3 pVertices[50];
 
 extern struct IDirectDrawClipper *pDDrawClipper;
 extern struct pUnkTerrain *Unks;

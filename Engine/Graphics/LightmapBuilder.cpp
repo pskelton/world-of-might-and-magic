@@ -96,18 +96,21 @@ bool LightmapBuilder::StackLight_TerrainFace(StationaryLight *pLight,
                                              unsigned int uStripType, int X,
                                              unsigned int *pSlot) {
     // For outdoor terrain light (II)
+
+    if (pLight->uRadius <= 0) return false;
+
     //  bool result; // eax@1
-    double maxz;      // st7@11
+    // double maxz;      // st7@11
                       //  char v20; // c2@11
                       //  signed int v52; // ecx@17
-    char v57;         // dl@18
+    //char v57;         // dl@18
     // String v58;  // [sp-18h] [bp-38h]@10
                       //  double v61; // [sp+Ch] [bp-14h]@11
-    float minz;       // [sp+14h] [bp-Ch]@11
-    float tX_0 = 0;
-    float tX_1 = 0;
-    float tY_0 = 0;
-    float tY_1 = 0;  // [sp+1Ch] [bp-4h]@5
+    // float minz;       // [sp+14h] [bp-Ch]@11
+    int tX_0 = 0;
+    int tX_1 = 0;
+    int tY_0 = 0;
+    int tY_1 = 0;  // [sp+1Ch] [bp-4h]@5
 
     //  x0,y0      x1,y1 // this is actuall ccw??
     //  .____________.
@@ -117,7 +120,7 @@ bool LightmapBuilder::StackLight_TerrainFace(StationaryLight *pLight,
     //  .____________.
     // x3,y3        x2,y2
 
-    if (pLight->uRadius <= 0) return false;
+    
     if (uStripType == 4) {
         tX_0 = TerrainVertices[0].vWorldPosition.x;
         tX_1 = TerrainVertices[3].vWorldPosition.x;
@@ -143,25 +146,33 @@ bool LightmapBuilder::StackLight_TerrainFace(StationaryLight *pLight,
         log->Warning("Uknown strip type detected!");
     }
 
-    minz = pIndoorCameraD3D->GetPolygonMinZ(TerrainVertices, uStripType);
-    maxz = pIndoorCameraD3D->GetPolygonMaxZ(TerrainVertices, uStripType);
 
-    float bounding_x1 = tX_0 - (float)pLight->uRadius;  // 13 976 - 128 =
-                                                        // 13848.0
-    float bounding_y1 = tY_0 - (float)pLight->uRadius;  // 3 800 - 128 = 3672.0
-    float bounding_z1 = minz - (float)pLight->uRadius;  // -26.0
 
-    float bounding_x2 =
-        (float)pLight->uRadius + tX_1;  // 13 877 + 128 =  14005.0
-    float bounding_y2 = (float)pLight->uRadius + tY_1;  // 3 792 + 128 =  3920.0
-    float bounding_z2 = (float)pLight->uRadius + maxz;  // 260.0
+    int bounding_x1 = tX_0 - pLight->uRadius;  // 13 976 - 128 = // 13848.0
+    int bounding_x2 = pLight->uRadius + tX_1;  // 13 877 + 128 =  14005.0
+    
+    
+    if (pLight->vPosition.x <= bounding_x1 ||
+        pLight->vPosition.x >= bounding_x2)
+        return false;
+
+    
+    float bounding_y2 = pLight->uRadius + tY_1;  // 3 792 + 128 =  3920.0
+    float bounding_y1 = tY_0 - pLight->uRadius;  // 3 800 - 128 = 3672.0
 
     //проверяем вершины
-    if ((float)pLight->vPosition.x <= bounding_x1 ||
-        (float)pLight->vPosition.x >= bounding_x2 ||
-        (float)pLight->vPosition.y <= bounding_y1 ||
-        (float)pLight->vPosition.y >= bounding_y2 ||
-        (float)pLight->vPosition.z <= bounding_z1 ||
+    if (pLight->vPosition.y <= bounding_y1 ||
+        pLight->vPosition.y >= bounding_y2)
+        return false;
+
+
+    float minz = pIndoorCameraD3D->GetPolygonMinZ(TerrainVertices, uStripType);
+    float maxz = pIndoorCameraD3D->GetPolygonMaxZ(TerrainVertices, uStripType);
+
+    float bounding_z2 = (float)pLight->uRadius + maxz;  // 260.0
+    float bounding_z1 = minz - (float)pLight->uRadius;  // -26.0
+    //проверяем вершины
+    if ((float)pLight->vPosition.z <= bounding_z1 ||
         (float)pLight->vPosition.z >= bounding_z2)
         return false;
 
@@ -186,7 +197,7 @@ bool LightmapBuilder::StackLight_TerrainFace(StationaryLight *pLight,
     Lights._blv_lights_light_dot_faces[*pSlot] = abs(p_dot);
     Lights._blv_lights_types[*pSlot] = pLight->uLightType;
 
-    v57 = Lights._blv_lights_types[*pSlot];
+    char v57 = Lights._blv_lights_types[*pSlot];
     if (render->config->is_using_specular && Lights._blv_lights_types[*pSlot] & 4)
         v57 = _4E94D2_light_type;
     Lights._blv_lights_types[*pSlot] = v57;

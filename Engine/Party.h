@@ -128,8 +128,8 @@ struct ActionQueue {
     void Reset();
     PartyAction Next();
 
-    unsigned int uNumActions;
-    PartyAction pActions[30]{};
+    unsigned int uNumActions = 0;
+    PartyAction pActions[30] {};
 };
 #pragma pack(pop)
 

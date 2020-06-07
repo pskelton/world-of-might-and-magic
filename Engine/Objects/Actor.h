@@ -135,7 +135,7 @@ struct AIDirection {
 /*   71 */
 #pragma pack(push, 1)
 struct ActorJob {
-    struct Vec3_short_ vPos;
+    struct Vec3_short_ vPos {};
     unsigned __int16 uAttributes = 0;
     unsigned __int8 uAction = 0;
     unsigned __int8 uHour = 0;

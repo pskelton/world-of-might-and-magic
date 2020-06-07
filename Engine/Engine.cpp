@@ -628,7 +628,6 @@ Engine::Engine() {
     // pCShow = nullptr;
     // pKeyboardInstance = new Keyboard;
     // pGammaController = new GammaController;
-
     keyboardInputHandler = ::keyboardInputHandler;
     keyboardActionMapping = ::keyboardActionMapping;
 }

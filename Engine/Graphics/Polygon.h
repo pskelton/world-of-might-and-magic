@@ -27,8 +27,8 @@ struct Polygon {
     float field_8 = 0;
     float field_C = 0;
     float field_10 = 0;
-    unsigned int uNumVertices;
-    Vec3_int_ v_18;
+    unsigned int uNumVertices = 0;
+    Vec3_int_ v_18 {};
     int field_24 = 0;
     int sTextureDeltaU = 0;
     int sTextureDeltaV = 0;
@@ -64,4 +64,4 @@ struct Polygon {
 };
 #pragma pack(pop)
 
-extern std::array<struct Polygon, 2000 + 18000> array_77EC08;
+extern std::array<struct Polygon, 2000 + 18000> poly_array_77EC08;

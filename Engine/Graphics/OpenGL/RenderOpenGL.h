@@ -63,6 +63,8 @@ class RenderOpenGL : public RenderBase {
     virtual void DrawPolygon(struct Polygon *a3);
     virtual void DrawTerrainPolygon(struct Polygon *a4, bool transparent,
                                     bool clampAtTextureBorders);
+
+    virtual void DrawIndoorBatched();
     virtual void DrawIndoorPolygon(unsigned int uNumVertices,
                                    struct BLVFace *a3, int uPackedID,
                                    unsigned int uColor, int a8);
@@ -109,6 +111,8 @@ class RenderOpenGL : public RenderBase {
     virtual void TexturePixelRotateDraw(float u, float v, Image *img, int time);
     virtual void DrawMonsterPortrait(Rect rc, SpriteFrame *Portrait_Sprite, int Y_Offset);
 
+
+    void BatchTriDraw();
 
     virtual void InvalidateGameViewport();
 
@@ -181,7 +185,7 @@ class RenderOpenGL : public RenderBase {
                                int blend_mode);
 
  public:
-    virtual void WritePixel16(int x, int y, uint16_t color);
+    virtual void WritePixel32(int x, int y, uint32_t color);
 
     virtual unsigned int GetRenderWidth() const;
     virtual unsigned int GetRenderHeight() const;

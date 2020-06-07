@@ -479,8 +479,8 @@ struct Engine {
     std::shared_ptr<Mouse> mouse = nullptr;
     std::shared_ptr<ParticleEngine> particle_engine = nullptr;
     Vis *vis = nullptr;
-    std::shared_ptr<KeyboardInputHandler> keyboardInputHandler;
-    std::shared_ptr<KeyboardActionMapping> keyboardActionMapping;
+    std::shared_ptr<KeyboardInputHandler> keyboardInputHandler = nullptr;
+    std::shared_ptr<KeyboardActionMapping> keyboardActionMapping = nullptr;
 };
 #pragma pack(pop)
 

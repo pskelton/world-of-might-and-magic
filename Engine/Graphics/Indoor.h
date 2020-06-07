@@ -803,13 +803,13 @@ struct BspRenderer {  // stru170
     void MakeVisibleSectorList();
     // void DrawFaceOutlines();
 
-    unsigned int num_faces;
+    unsigned int num_faces = 0;
     // __int16 pFaceIDs[2000];
     BspFace faces[1000] {};
     // char field_130[3700];
-    unsigned int num_nodes;
-    BspRenderer_stru0 nodes[150];
-    unsigned int uNumVisibleNotEmptySectors;
+    unsigned int num_nodes = 0;
+    BspRenderer_stru0 nodes[150] {};
+    unsigned int uNumVisibleNotEmptySectors = 0;
     uint16_t pVisibleSectorIDs_toDrawDecorsActorsEtcFrom[6] {};
 };
 #pragma pack(pop)

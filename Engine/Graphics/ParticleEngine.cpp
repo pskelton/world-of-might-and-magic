@@ -261,7 +261,7 @@ void ParticleEngine::DrawParticles_BLV() {
 
     v15.sParentBillboardID = -1;
 
-    for (uint i = uStartParticle; i < uEndParticle; ++i) {
+    for (uint i = uStartParticle; i <= uEndParticle; ++i) {
         Particle *p = &pParticles[i];
 
         if (p->type == ParticleType_Invalid) continue;

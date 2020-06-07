@@ -156,8 +156,8 @@ struct TrailParticleGenerator {  // stru167_wrap
  protected:
     void AddParticle(int x, int y, int z, int bgr16);
 
-    TrailParticle particles[100];
-    int num_particles;
+    TrailParticle particles[100] {};
+    int num_particles = 0;
     int field_964 = 0;
 };
 #pragma pack(pop)

@@ -335,6 +335,16 @@ const void *Image::GetPixels(IMAGE_FORMAT format) {
     return nullptr;
 }
 
+String* Image::GetName() {
+    //if (!initialized) {
+    //    LoadImageData();
+    //}
+    if (!loader) __debugbreak();
+    
+    return loader->GetResourceNamePtr();
+}
+
+
 bool Image::Release() {
     if (loader) {
         assets->ReleaseImage(loader->GetResourceName());

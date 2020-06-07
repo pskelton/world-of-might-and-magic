@@ -62,10 +62,11 @@ struct ItemGen {  // 0x24
     uint8_t GetDamageRoll();
     uint8_t GetDamageMod();
     bool MerchandiseTest(int _2da_idx);
+
     int uItemID = 0;                // 0
     int uEnchantmentType = 0;       // 4
     int m_enchantmentStrength = 0;  // 8
-    ITEM_ENCHANTMENT special_enchantment{};  // 0c
+    ITEM_ENCHANTMENT special_enchantment = ITEM_ENCHANTMENT_NULL;  // 0c
                               // 25  +5 levels
                               // 16  Drain Hit Points from target.
                               // 35  Increases chance of disarming.
@@ -90,7 +91,7 @@ struct ItemGen {  // 0x24
     char uMaxCharges = 0;             // 19
     char uHolderPlayer = 0;           // 1A
     char field_1B = 0;                // 1B
-    GameTime uExpireTime;        // uint64_t uExpireTime; //1C
+    GameTime uExpireTime {};        // uint64_t uExpireTime; //1C
 };
 #pragma pack(pop)
 

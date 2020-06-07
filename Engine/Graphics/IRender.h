@@ -73,11 +73,11 @@ struct ODMRenderParams {
 
     void Initialize();
 
-    int uPickDepth;
-    int shading_dist_shade;
-    int shading_dist_shademist;
-    int near_clip;
-    int far_clip;  // far clip (shading_dist_mist in M&M6 terms)
+    int uPickDepth = 0;
+    int shading_dist_shade = 0;
+    int shading_dist_shademist = 0;
+    int near_clip = 0;
+    int far_clip = 0;  // far clip (shading_dist_mist in M&M6 terms)
     unsigned int uCameraFovInDegrees = 0;
     int int_fov_rad = 0;      // 157 struct IndoorCamera::fov_rad
     int int_fov_rad_inv = 0;  // 157 struct IndoorCamera::fov_rad_inv
@@ -96,12 +96,12 @@ struct ODMRenderParams {
     int outdoor_grid_band_3 = 0;
     int field_4C = 0;
     int field_50 = 0;
-    unsigned int bNoSky;
-    unsigned int bDoNotRenderDecorations;
-    int field_5C;
-    int field_60;
-    int outdoor_no_wavy_water;
-    int outdoor_no_mist;
+    unsigned int bNoSky = 0;
+    unsigned int bDoNotRenderDecorations = 0;
+    int field_5C = 0;
+    int field_60 = 0;
+    int outdoor_no_wavy_water = 0;
+    int outdoor_no_mist = 0;
     int building_gamme = 0;
     int terrain_gamma = 0;
 
@@ -223,7 +223,10 @@ class IRender {
         uNumBillboardsToDraw = 0;
         drawcalls = 0;
     }
-    virtual ~IRender() {}
+    virtual ~IRender() {
+        //logger->Warning("Irender shutdown!");
+        __debugbreak();
+    }
 
     virtual bool Configure(std::shared_ptr<const IRenderConfig> config) {
         this->config = config;
@@ -273,6 +276,8 @@ class IRender {
     virtual void DrawPolygon(struct Polygon *a3) = 0;
     virtual void DrawTerrainPolygon(struct Polygon *a4, bool transparent,
                                     bool clampAtTextureBorders) = 0;
+
+    virtual void DrawIndoorBatched() = 0;
     virtual void DrawIndoorPolygon(unsigned int uNumVertices,
                                    struct BLVFace *a3, int uPackedID,
                                    unsigned int uColor, int a8) = 0;
@@ -442,7 +447,7 @@ class IRender {
     Vis *vis = nullptr;
     std::shared_ptr<OSWindow> window = nullptr;
 
-    virtual void WritePixel16(int x, int y, uint16_t color) = 0;
+    virtual void WritePixel32(int x, int y, uint32_t color) = 0;
 
     virtual unsigned int GetRenderWidth() const = 0;
     virtual unsigned int GetRenderHeight() const = 0;

@@ -71,12 +71,12 @@ struct SpriteFrameTable {
     SpriteFrame *GetFrame(unsigned int uSpriteID, unsigned int uTime);
     SpriteFrame *GetFrameBy_x(unsigned int uSpriteID, signed int a3);
 
-    int uNumSpriteFrames;
+    int uNumSpriteFrames = 0;
     unsigned int uNumEFrames = 0;      // field_4;
     int unused_field = 0;              // field_8
-    SpriteFrame *pSpriteSFrames;   // 0c  new SpriteFrame[X]
-    SpriteFrame **pSpritePFrames;  // 10h  pSpritePFrames[i] = &pSpriteSFrames[pSpriteEFrames[i]];
-    int16_t *pSpriteEFrames;       // 14h
+    SpriteFrame *pSpriteSFrames = nullptr;   // 0c  new SpriteFrame[X]
+    SpriteFrame **pSpritePFrames = nullptr;  // 10h  pSpritePFrames[i] = &pSpriteSFrames[pSpriteEFrames[i]];
+    int16_t* pSpriteEFrames = nullptr;       // 14h
 };
 #pragma pack(pop)
 

@@ -39,6 +39,8 @@ class Image {
     const void *GetPixels(IMAGE_FORMAT format);
     IMAGE_FORMAT GetFormat() const { return native_format; }
 
+    String* GetName();
+
     bool Release();
 
  protected:
@@ -49,7 +51,7 @@ class Image {
     unsigned int width = 0;
     unsigned int height = 0;
     IMAGE_FORMAT native_format = IMAGE_INVALID_FORMAT;
-    void* pixels[IMAGE_NUM_FORMATS]{};
+    void* pixels[IMAGE_NUM_FORMATS] {};
 
     virtual bool LoadImageData();
 };

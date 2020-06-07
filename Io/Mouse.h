@@ -57,7 +57,7 @@ namespace Io {
         int field_1C = 0;
         int field_20 = 0;
         Image* cursor_img = nullptr;
-        std::shared_ptr<OSWindow> window;
+        std::shared_ptr<OSWindow> window = nullptr;
         uint16_t* pCursorBitmap_sysmem = nullptr;
         int field_34 = 0;
         uint8_t* pCursorBitmap2_sysmem = nullptr;
@@ -67,7 +67,7 @@ namespace Io {
         int field_50 = 0;
         int field_54 = 0;
         int uCursorBitmapPitch = 0;
-        int field_5C[13]{};
+        int field_5C[13] {};
         void* ptr_90 = nullptr;
         int field_94 = 0;
         int field_98 = 0;
@@ -81,7 +81,7 @@ namespace Io {
         int field_B8 = 0;
         int field_BC = 0;
         int field_C0 = 0;
-        Point pCursorBitmapPos{};
+        Point pCursorBitmapPos {};
         int uCursorBitmapWidth = 0;
         int uCursorBitmapHeight = 0;
         int field_D4 = 0;

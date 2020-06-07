@@ -17,6 +17,12 @@ class RenderD3D;
 class Image;
 class OSWindow;
 
+struct BatchTriangles;
+
+void BatchTriSort();
+bool SortByTransThenTex(const BatchTriangles* lhs, const BatchTriangles* rhs);
+void BatchTriDraw();
+
 class Render : public RenderBase {
  public:
     Render(
@@ -73,6 +79,8 @@ class Render : public RenderBase {
     virtual void DrawPolygon(struct Polygon *a3);
     virtual void DrawTerrainPolygon(struct Polygon *a4, bool transparent,
                                     bool clampAtTextureBorders);
+
+    virtual void DrawIndoorBatched();
     virtual void DrawIndoorPolygon(unsigned int uNumVertices,
                                    struct BLVFace *a3, int uPackedID,
                                    unsigned int uColor, int a8);
@@ -189,7 +197,7 @@ class Render : public RenderBase {
     virtual HWLTexture *LoadHwlSprite(const char *name);
 
  public:
-    virtual void WritePixel16(int x, int y, uint16_t color);
+    virtual void WritePixel32(int x, int y, uint32_t color);
 
     virtual unsigned int GetRenderWidth() const;
     virtual unsigned int GetRenderHeight() const;
@@ -216,6 +224,10 @@ class Render : public RenderBase {
     unsigned int uMinDeviceTextureDim;
 
     // 2D drawing
+    int clip_x, clip_y;
+    int clip_z, clip_w;
+    uint32_t* render_target_rgb;  // now 32 - draw to in format A8R8G8B8 - endian swivel means BGRA
+
     Gdiplus::GdiplusStartupInput gdiplusStartupInput;
     ULONG_PTR gdiplusToken;
     Gdiplus::Bitmap *p2DSurface;
@@ -245,4 +257,5 @@ class Render : public RenderBase {
                             DDSURFACEDESC2 *pDesc, unsigned int uLockFlags);
     void DrawOutdoorSkyPolygon(struct Polygon *pSkyPolygon);
     void DrawIndoorSkyPolygon(int uNumVertices, struct Polygon *pSkyPolygon);
+    void BatchTriDraw();
 };

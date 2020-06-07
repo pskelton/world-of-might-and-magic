@@ -12,9 +12,9 @@
 #include "Platform/Api.h"
 
 
-uint32_t *MakeImageSolid(unsigned int width, unsigned int height,
-                         uint8_t *pixels, uint8_t *palette) {
-    uint32_t *res = new uint32_t[width * height];
+uint32_t* MakeImageSolid(unsigned int width, unsigned int height,
+    uint8_t* pixels, uint8_t* palette) {
+    uint32_t* res = new uint32_t[width * height];
 
     for (unsigned int y = 0; y < height; ++y) {
         for (unsigned int x = 0; x < width; ++x) {
@@ -29,9 +29,9 @@ uint32_t *MakeImageSolid(unsigned int width, unsigned int height,
     return res;
 }
 
-uint32_t *MakeImageAlpha(unsigned int width, unsigned int height,
-                         uint8_t *pixels, uint8_t *palette) {
-    uint32_t *res = new uint32_t[width * height];
+uint32_t* MakeImageAlpha(unsigned int width, unsigned int height,
+    uint8_t* pixels, uint8_t* palette) {
+    uint32_t* res = new uint32_t[width * height];
 
     for (unsigned int y = 0; y < height; ++y) {
         for (unsigned int x = 0; x < width; ++x) {
@@ -41,7 +41,8 @@ uint32_t *MakeImageAlpha(unsigned int width, unsigned int height,
             auto b = palette[(index * 3) + 2];
             if (index == 0) {
                 res[y * width + x] = 0x00000000;
-            } else {
+            }
+            else {
                 res[y * width + x] = Color32(r, g, b);
             }
         }
@@ -50,10 +51,10 @@ uint32_t *MakeImageAlpha(unsigned int width, unsigned int height,
     return res;
 }
 
-uint32_t *MakeImageColorKey(unsigned int width, unsigned int height,
-                            uint8_t *pixels, uint8_t *palette,
-                            uint16_t color_key) {
-    uint32_t *res = new uint32_t[width * height];
+uint32_t* MakeImageColorKey(unsigned int width, unsigned int height,
+    uint8_t* pixels, uint8_t* palette,
+    uint16_t color_key) {
+    uint32_t* res = new uint32_t[width * height];
 
     for (unsigned int y = 0; y < height; ++y) {
         for (unsigned int x = 0; x < width; ++x) {
@@ -63,7 +64,8 @@ uint32_t *MakeImageColorKey(unsigned int width, unsigned int height,
             auto b = palette[(index * 3) + 2];
             if (Color16(r, g, b) == color_key) {
                 res[y * width + x] = 0x00000000;
-            } else {
+            }
+            else {
                 res[y * width + x] = Color32(r, g, b);
             }
         }
@@ -72,15 +74,15 @@ uint32_t *MakeImageColorKey(unsigned int width, unsigned int height,
     return res;
 }
 
-bool ColorKey_LOD_Loader::Load(unsigned int *out_width,
-                               unsigned int *out_height, void **out_pixels,
-                               IMAGE_FORMAT *out_format) {
+bool ColorKey_LOD_Loader::Load(unsigned int* out_width,
+    unsigned int* out_height, void** out_pixels,
+    IMAGE_FORMAT* out_format) {
     *out_width = 0;
     *out_height = 0;
     *out_pixels = nullptr;
     *out_format = IMAGE_INVALID_FORMAT;
 
-    Texture_MM7 *tex = lod->GetTexture(
+    Texture_MM7* tex = lod->GetTexture(
         lod->LoadTexture(resource_name.c_str(), TEXTURE_24BIT_PALETTE));
     if ((tex == nullptr) || (tex->pPalette24 == nullptr) ||
         (tex->paletted_pixels == nullptr)) {
@@ -89,9 +91,10 @@ bool ColorKey_LOD_Loader::Load(unsigned int *out_width,
 
     if (tex->header.pBits & 512) {
         *out_pixels = MakeImageAlpha(tex->header.uTextureWidth,
-                                     tex->header.uTextureHeight,
-                                     tex->paletted_pixels, tex->pPalette24);
-    } else {
+            tex->header.uTextureHeight,
+            tex->paletted_pixels, tex->pPalette24);
+    }
+    else {
         *out_pixels = MakeImageColorKey(
             tex->header.uTextureWidth, tex->header.uTextureHeight,
             tex->paletted_pixels, tex->pPalette24, colorkey);
@@ -108,15 +111,15 @@ bool ColorKey_LOD_Loader::Load(unsigned int *out_width,
     return true;
 }
 
-bool Image16bit_LOD_Loader::Load(unsigned int *out_width,
-                                 unsigned int *out_height, void **out_pixels,
-                                 IMAGE_FORMAT *out_format) {
+bool Image16bit_LOD_Loader::Load(unsigned int* out_width,
+    unsigned int* out_height, void** out_pixels,
+    IMAGE_FORMAT* out_format) {
     *out_width = 0;
     *out_height = 0;
     *out_pixels = nullptr;
     *out_format = IMAGE_INVALID_FORMAT;
 
-    Texture_MM7 *tex = lod->GetTexture(
+    Texture_MM7* tex = lod->GetTexture(
         lod->LoadTexture(resource_name.c_str(), TEXTURE_24BIT_PALETTE));
     if ((tex == nullptr) || (tex->pPalette24 == nullptr) ||
         (tex->paletted_pixels == nullptr)) {
@@ -125,12 +128,13 @@ bool Image16bit_LOD_Loader::Load(unsigned int *out_width,
 
     if (tex->header.pBits & 512) {
         *out_pixels = MakeImageAlpha(tex->header.uTextureWidth,
-                                     tex->header.uTextureHeight,
-                                     tex->paletted_pixels, tex->pPalette24);
-    } else {
+            tex->header.uTextureHeight,
+            tex->paletted_pixels, tex->pPalette24);
+    }
+    else {
         *out_pixels = MakeImageSolid(tex->header.uTextureWidth,
-                                     tex->header.uTextureHeight,
-                                     tex->paletted_pixels, tex->pPalette24);
+            tex->header.uTextureHeight,
+            tex->paletted_pixels, tex->pPalette24);
     }
 
     if (*out_pixels == nullptr) {
@@ -144,14 +148,14 @@ bool Image16bit_LOD_Loader::Load(unsigned int *out_width,
     return true;
 }
 
-bool Alpha_LOD_Loader::Load(unsigned int *out_width, unsigned int *out_height,
-                            void **out_pixels, IMAGE_FORMAT *out_format) {
+bool Alpha_LOD_Loader::Load(unsigned int* out_width, unsigned int* out_height,
+    void** out_pixels, IMAGE_FORMAT* out_format) {
     *out_width = 0;
     *out_height = 0;
     *out_pixels = nullptr;
     *out_format = IMAGE_INVALID_FORMAT;
 
-    Texture_MM7 *tex = lod->GetTexture(
+    Texture_MM7* tex = lod->GetTexture(
         lod->LoadTexture(resource_name.c_str(), TEXTURE_24BIT_PALETTE));
     if ((tex == nullptr) || (tex->pPalette24 == nullptr) ||
         (tex->paletted_pixels == nullptr)) {
@@ -160,9 +164,10 @@ bool Alpha_LOD_Loader::Load(unsigned int *out_width, unsigned int *out_height,
 
     if ((tex->header.pBits == 0) || (tex->header.pBits & 512)) {
         *out_pixels = MakeImageAlpha(tex->header.uTextureWidth,
-                                     tex->header.uTextureHeight,
-                                     tex->paletted_pixels, tex->pPalette24);
-    } else {
+            tex->header.uTextureHeight,
+            tex->paletted_pixels, tex->pPalette24);
+    }
+    else {
         *out_pixels = MakeImageColorKey(
             tex->header.uTextureWidth, tex->header.uTextureHeight,
             tex->paletted_pixels, tex->pPalette24, 0x7FF);
@@ -179,8 +184,8 @@ bool Alpha_LOD_Loader::Load(unsigned int *out_width, unsigned int *out_height,
     return true;
 }
 
-bool PCX_Loader::DecodePCX(const void *pcx_data, uint16_t *pOutPixels,
-                           unsigned int *width, unsigned int *height) {
+bool PCX_Loader::DecodePCX(const void* pcx_data, uint16_t* pOutPixels,
+    unsigned int* width, unsigned int* height) {
     return PCX::Decode(pcx_data, pOutPixels, width, height);
 }
 
@@ -214,7 +219,7 @@ bool PCX_File_Loader::Load(unsigned int *width, unsigned int *height,
     *pixels = nullptr;
     *format = IMAGE_INVALID_FORMAT;
 
-    FILE *file = fcaseopen(this->resource_name.c_str(), "rb");
+    FILE* file = fcaseopen(this->resource_name.c_str(), "rb");
     if (!file) {
         log->Warning("Unable to load %s", this->resource_name.c_str());
         return false;
@@ -245,7 +250,7 @@ bool PCX_LOD_Raw_Loader::Load(unsigned int *width, unsigned int *height,
     *format = IMAGE_INVALID_FORMAT;
 
     size_t size;
-    void *data = lod->LoadRaw(resource_name, &size);
+    void* data = lod->LoadRaw(resource_name, &size);
     if (data == nullptr) {
         log->Warning("Unable to load %s", this->resource_name.c_str());
         return false;
@@ -266,7 +271,7 @@ bool PCX_LOD_Compressed_Loader::Load(unsigned int *width, unsigned int *height,
     *format = IMAGE_INVALID_FORMAT;
 
     size_t data_size = 0;
-    void *pcx_data = lod->LoadCompressedTexture(resource_name, &data_size);
+    void* pcx_data = lod->LoadCompressedTexture(resource_name, &data_size);
     if (pcx_data == nullptr) {
         log->Warning("Unable to load %s", resource_name.c_str());
         return false;
@@ -279,8 +284,8 @@ bool PCX_LOD_Compressed_Loader::Load(unsigned int *width, unsigned int *height,
     return res;
 }
 
-bool Bitmaps_LOD_Loader::Load(unsigned int *width, unsigned int *height,
-                              void **out_pixels, IMAGE_FORMAT *format) {
+bool Bitmaps_LOD_Loader::Load(unsigned int* width, unsigned int* height,
+    void** out_pixels, IMAGE_FORMAT* format) {
     *width = 0;
     *height = 0;
     *out_pixels = nullptr;
@@ -296,13 +301,13 @@ bool Bitmaps_LOD_Loader::Load(unsigned int *width, unsigned int *height,
         *format = IMAGE_FORMAT_A1R5G5B5;
 
         if (tex->header.pBits & 2) {  // hardware bitmap
-            HWLTexture *hwl = render->LoadHwlBitmap(this->resource_name.c_str());
+            HWLTexture* hwl = render->LoadHwlBitmap(this->resource_name.c_str());
             if (hwl) {
                 // linear scaling
                 for (int s = 0; s < tex->header.uTextureHeight; ++s) {
                     for (int t = 0; t < tex->header.uTextureWidth; ++t) {
                         unsigned int resampled_x = t * hwl->uWidth / tex->header.uTextureWidth,
-                                     resampled_y = s * hwl->uHeight / tex->header.uTextureHeight;
+                            resampled_y = s * hwl->uHeight / tex->header.uTextureHeight;
                         unsigned short sample = hwl->pPixels[resampled_y * hwl->uWidth + resampled_x];
 
                         pixels[s * tex->header.uTextureWidth + t] = sample;
@@ -321,14 +326,14 @@ bool Bitmaps_LOD_Loader::Load(unsigned int *width, unsigned int *height,
     return false;
 }
 
-bool Sprites_LOD_Loader::Load(unsigned int *width, unsigned int *height,
-                              void **out_pixels, IMAGE_FORMAT *format) {
+bool Sprites_LOD_Loader::Load(unsigned int* width, unsigned int* height,
+    void** out_pixels, IMAGE_FORMAT* format) {
     *width = 0;
     *height = 0;
     *out_pixels = nullptr;
     *format = IMAGE_INVALID_FORMAT;
 
-    HWLTexture *hwl = render->LoadHwlSprite(this->resource_name.c_str());
+    HWLTexture* hwl = render->LoadHwlSprite(this->resource_name.c_str());
     if (hwl) {
         int dst_width = hwl->uWidth;
         int dst_height = hwl->uHeight;
@@ -340,7 +345,7 @@ bool Sprites_LOD_Loader::Load(unsigned int *width, unsigned int *height,
             for (int s = 0; s < dst_height; ++s) {
                 for (int t = 0; t < dst_width; ++t) {
                     unsigned int resampled_x = t * hwl->uWidth / dst_width,
-                                 resampled_y = s * hwl->uHeight / dst_height;
+                        resampled_y = s * hwl->uHeight / dst_height;
 
                     unsigned short sample =
                         hwl->pPixels[resampled_y * hwl->uWidth + resampled_x];

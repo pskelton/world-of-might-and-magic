@@ -44,11 +44,11 @@ struct SpellFX_Billboard {
     struct stru160 *pArray2;
 
     // spellfx verts
-    int uNumVertices;
-    local_01 field_14[5]{};  // world coords of verts
-    local_01 field_64[5]{};  // view coords
-    local_01 field_B4[5]{};  // clipped view coords
-    local_01 field_104[5]{};  // projected billboard coords
+    int uNumVertices = 0;
+    local_01 field_14[5] {};  // world coords of verts
+    local_01 field_64[5] {};  // view coords
+    local_01 field_B4[5] {};  // clipped view coords
+    local_01 field_104[5] {};  // projected billboard coords
 };
 #pragma pack(pop)
 

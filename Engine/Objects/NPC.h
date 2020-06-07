@@ -162,34 +162,33 @@ struct NPCStats {
     char *sub_495366_MispronounceName(uint8_t firstLetter,
                                       uint8_t genderId);
 
-    NPCData pNPCData[501]{};     // 0 - 94BCh count from 1
-    NPCData pNewNPCData[501]{};  // 94BCh- 12978h count from 1
-    char *pNPCNames[540][2];
-    NPCProfession pProfessions[59]{};  // count from 1
-    NPCData pAdditionalNPC[100]{};
-    char *pCatchPhrases[52];   // 15CA4h
-    char *pNPCUnicNames[500];  // from first batch
-    NPCProfessionChance
-        pProfessionChance[77];  // 16544h profession chance in each area
+    NPCData pNPCData[501] {};     // 0 - 94BCh count from 1
+    NPCData pNewNPCData[501] {};  // 94BCh- 12978h count from 1
+    char* pNPCNames[540][2] {};
+    NPCProfession pProfessions[59] {};  // count from 1
+    NPCData pAdditionalNPC[100] {};
+    char* pCatchPhrases[52] {};   // 15CA4h
+    char* pNPCUnicNames[500] {};  // from first batch
+    NPCProfessionChance pProfessionChance[77] {};  // 16544h profession chance in each area
     int field_17884 = 0;
     int field_17888 = 0;
-    NPCGreeting pNPCGreetings[206];
-    uint16_t pGroups[51];
-    uint16_t pGroups_copy[51];
-    unsigned int uNewlNPCBufPos;
-    unsigned int uNumNewNPCs;
+    NPCGreeting pNPCGreetings[205] {};
+    uint16_t pGroups[51] {};
+    uint16_t pGroups_copy[51] {};
+    unsigned int uNewlNPCBufPos = 0;
+    unsigned int uNumNewNPCs = 0;
     int field_17FC8 = 0;
-    unsigned int uNumNPCProfessions;
-    unsigned int uNumNPCNames[2];  // 0 male 1 female
-    char *pNPCDataTXT_Raw;
-    char *pNPCNamesTXT_Raw;
-    char *pNPCProfTXT_Raw;
-    char *pNPCNewsTXT_Raw;
-    char *pNPCTopicTXT_Raw;
-    char *pNPCTextTXT_Raw;
-    char *pNPCDistTXT_Raw;
-    char *pNPCGreetTXT_Raw;
-    char *pNCPGroupTXT_Raw;
+    unsigned int uNumNPCProfessions = 0;
+    unsigned int uNumNPCNames[2] {};  // 0 male 1 female
+    char *pNPCDataTXT_Raw = nullptr;
+    char *pNPCNamesTXT_Raw = nullptr;
+    char *pNPCProfTXT_Raw = nullptr;
+    char *pNPCNewsTXT_Raw = nullptr;
+    char *pNPCTopicTXT_Raw = nullptr;
+    char *pNPCTextTXT_Raw = nullptr;
+    char *pNPCDistTXT_Raw = nullptr;
+    char *pNPCGreetTXT_Raw = nullptr;
+    char *pNCPGroupTXT_Raw = nullptr;
 
     static int dword_AE336C_LastMispronouncedNameFirstLetter;
     static int dword_AE3370_LastMispronouncedNameResult;

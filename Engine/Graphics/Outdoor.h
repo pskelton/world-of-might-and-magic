@@ -52,10 +52,10 @@ struct OutdoorLocationTerrain {
     bool ZeroLandscape();
     bool Initialize();
 
-    uint8_t *pHeightmap;
-    uint8_t *pTilemap;
-    uint8_t *pAttributemap;
-    struct DMap *pDmap;
+    uint8_t *pHeightmap = nullptr;
+    uint8_t *pTilemap = nullptr;
+    uint8_t *pAttributemap = nullptr;
+    struct DMap *pDmap = nullptr;
     int16_t field_10 = 0;
     int16_t field_12 = 0;
     int16_t field_14 = 0;

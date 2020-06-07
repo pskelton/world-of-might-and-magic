@@ -314,6 +314,9 @@ void IndoorLocation::DrawIndoorFaces(bool bD3D) {
                 }
             }
         }
+
+        render->DrawIndoorBatched();
+
         // pFace = &pIndoor->pFaces[uFaceID];
 
         return;
@@ -380,6 +383,8 @@ void IndoorLocation::Draw() {
     PrepareDrawLists_BLV();
     if (pBLVRenderParams->uPartySectorID)
         DrawIndoorFaces(true /*render->pRenderD3D != 0*/);
+
+
     render->DrawBillboardList_BLV();
     //}
 
@@ -456,6 +461,9 @@ void IndoorLocation::ExecDraw_d3d(unsigned int uFaceID,
     if (pFace->Invisible()) {
         return;
     }
+
+    // check if its visible
+
 
     ++pBLVRenderParams->uNumFacesRenderedThisFrame;
 
@@ -580,6 +588,7 @@ void IndoorLocation::ExecDraw_d3d(unsigned int uFaceID,
             }
         }
     }
+    //logger->Info("culled 1");
 }
 
 //----- (004B0E07) --------------------------------------------------------

@@ -47,7 +47,7 @@ OutdoorLocation *pOutdoor = new OutdoorLocation;
 ODMRenderParams *pODMRenderParams;
 
 SkyBillboardStruct SkyBillboard;  // skybox planes
-std::array<struct Polygon, 2000 + 18000> array_77EC08;
+std::array<struct Polygon, 2000 + 18000> poly_array_77EC08;
 
 struct FogProbabilityTableEntry {
     unsigned char small_fog_chance;
@@ -121,7 +121,9 @@ void OutdoorLocation::ExecDraw(unsigned int bRedraw) {
     {
         SkyBillboard.CalcSkyFrustumVec(65536, 0, 0, 0, 65536, 0);  // sky box frustum
         render->DrawOutdoorSkyD3D();
+        if (!render) __debugbreak();
         render->RenderTerrainD3D();
+        if (!render) __debugbreak();
         render->DrawBuildingsD3D();
 
         // render->DrawBezierTerrain();
@@ -3380,7 +3382,7 @@ void SetUnderwaterFog() {
 
 //----- (00487DA9) --------------------------------------------------------
 void sub_487DA9() {
-    // for (int i = 0; i < 20000; ++i) array_77EC08[i].field_108 = 0;
+    // for (int i = 0; i < 20000; ++i) poly_array_77EC08[i].field_108 = 0;
 }
 
 //----- (004706C6) --------------------------------------------------------
@@ -3852,9 +3854,9 @@ void ODM_LoadAndInitialize(const String &pFilename, ODMRenderParams *thisa) {
     pODMRenderParams->int_fov_rad_inv = (signed __int64)fov_rad_inv;
 
     for (int i = 0; i < 20000; ++i) {
-        array_77EC08[i].ptr_38 = &SkyBillboard;
+        poly_array_77EC08[i].ptr_38 = &SkyBillboard;
 
-        array_77EC08[i].ptr_48 = nullptr;
+        poly_array_77EC08[i].ptr_48 = nullptr;
     }
 
     MM7Initialization();

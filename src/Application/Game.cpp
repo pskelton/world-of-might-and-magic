@@ -312,6 +312,9 @@ void ShowMM7IntroVideo_and_LoadingScreen() {
     bGameoverLoop = true;
 
     render->PresentBlackScreen();
+
+    render->ResetUIClipRect();
+
     if (!engine->config->NoVideo()) {
         if (!engine->config->no_logo) {
             pMediaPlayer->PlayFullscreenMovie("3dologo");
